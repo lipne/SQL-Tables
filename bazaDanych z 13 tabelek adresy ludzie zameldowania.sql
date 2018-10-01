@@ -65,10 +65,7 @@ INSERT INTO Wojewodztwa
 create table LokacjeAdresowe(IdLokacjeAdresowe PRIMARY KEY IDENTITY(1,1),IdKodyPocztowe INTEGER, IdNazwyAdresowe INTEGER)
 INSERT INTO LokacjeAdresowe
 (1,2),
-(2,3),
-(''),
-(''),
-('');
+(2,3);
 
 --6 Budynki
 create table Budynki(IdBudynki PRIMARY KEY IDENTITY(1,1),IdLokacjeAdresowe INTEGER, NrBudynkow INTEGER, DlugosciGeograficzne NULL INTEGER,
@@ -77,8 +74,8 @@ INSERT INTO Budynki
 (1,20,null,null),
 (2,10,null,null);
 --7 Mieszkania
-create table Mieszkania(IdMieszkan PRIMARY KEY IDENTITY(1,1),IdBudynki INTEGER, NrMieszkan NVarChar(10), NrKlatek INTEGER NULL)
-INSERT INTO Mieszkania
+create table Mieszkan(IdMieszkan PRIMARY KEY IDENTITY(1,1),IdBudynki INTEGER, NrMieszkan NVarChar(10), NrKlatek INTEGER NULL)
+INSERT INTO Mieszkan
 (1,13,2),
 (2,26,null);
 --8 Meldunki
@@ -107,7 +104,6 @@ INSERT INTO NazwiskaPojedyncze
 ('Nowak'),
 ('Kowalski'),
 ('Capanidis');
-
 --12 Żeby można było mieć imion więcej niż jedno
 create table OsobyImiona(IdOsby INTEGER, IdImiona INTEGER)
 
