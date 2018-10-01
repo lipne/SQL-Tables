@@ -29,7 +29,8 @@ INSERT INTO NazwyAdresowe VALUES
 --3 kody pocztowe
 create table KodyPocztowe(IdKodyPocztowe PRIMARY KEY IDENTITY(1,1), NazwyKoduPocztowego VARCHAR (12))
 INSERT INTO KodyPocztowe
-('59-400');
+('59-400'),
+('99-999');
 create table Miejscowosci(IdMiejscowosci PRIMARY KEY IDENTIFIED(1,1), NazwyMiejscowosci NvarChar (30))
 INSERT INTO Miejscowosci
 ('Jawor'),
@@ -64,21 +65,22 @@ INSERT INTO Wojewodztwa
 create table LokacjeAdresowe(IdLokacjeAdresowe PRIMARY KEY IDENTITY(1,1),IdKodyPocztowe INTEGER, IdNazwyAdresowe INTEGER)
 INSERT INTO LokacjeAdresowe
 (1,2),
-(''),
+(2,3),
 (''),
 (''),
 ('');
 
 --6 Budynki
-create table Budynki(IdBudynki PRIMARY KEY IDENTITY(1,1),IdLokacjeAdresowe INTEGER, NrBudynkow INTEGER, DlugosciGeograficzne INTEGER,
-SzerokosciGeograficzne INTEGER )
+create table Budynki(IdBudynki PRIMARY KEY IDENTITY(1,1),IdLokacjeAdresowe INTEGER, NrBudynkow INTEGER, DlugosciGeograficzne NULL INTEGER,
+SzerokosciGeograficzne NULL INTEGER)
 INSERT INTO Budynki
-(1,20,null,null);
+(1,20,null,null),
+(2,10,null,null);
 --7 Mieszkania
-create table Mieszkania(IdMieszkan PRIMARY KEY IDENTITY(1,1),IdBudynki INTEGER, NrMieszkan NVarChar(10))
+create table Mieszkania(IdMieszkan PRIMARY KEY IDENTITY(1,1),IdBudynki INTEGER, NrMieszkan NVarChar(10), NrKlatek INTEGER NULL)
 INSERT INTO Mieszkania
-(1,'c/13');
-
+(1,13,2),
+(2,26,null);
 --8 Meldunki
 create table Meldunki(IdMeldunkow PRIMARY KEY IDENTITY(1,1), IdOsby INTEGER, DatyZameldowan DATE NOT NULL,DatyWymeldowan DATE NULL,CzyStaleZameldowanie BOOLEAN)
 
