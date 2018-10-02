@@ -62,19 +62,18 @@ INSERT INTO Wojewodztwa
 ('Małopolskie');
 
 --5 Lokacja czyli ulica; plac; aleja w konkretnym miejscu. Jeżeli ulica zmienia nazwę zmienia się tylko IdNazwyAdresowe
-create table LokacjeAdresowe(IdLokacjeAdresowe PRIMARY KEY IDENTITY(1,1),IdKodyPocztowe INTEGER, IdNazwyAdresowe INTEGER)
+create table LokacjeAdresowe(IdLokacjeAdresowe PRIMARY KEY IDENTITY(1,1),IdKodyPocztowe varchar(10), IdNazwyAdresowe varchar(10))
 INSERT INTO LokacjeAdresowe
 (1,2),
 (2,3);
 
---6 Budynki
-create table Budynki(IdBudynki PRIMARY KEY IDENTITY(1,1),IdLokacjeAdresowe INTEGER, NrBudynkow INTEGER, DlugosciGeograficzne NULL INTEGER,
-SzerokosciGeograficzne NULL INTEGER)
+--6 Budynki położenie georgraficzne dla google maps to 2 cyfry stopni kąta kropka i chyba ułamek dzieśętny w ośmu cyfrach ja dodałem jeszcze jeden znaczek na dodatkowy opis jeśli ewentualnie developerowi będzie potrzebny
+create table Budynki(IdBudynki PRIMARY KEY IDENTITY(1,1),IdLokacjeAdresowe INTEGER, NrBudynkow INTEGER, DlugosciGeograficzneGoogle VARCHAR(12) ,SzerokosciGeograficzneGoogle VARCHAR(12))
 INSERT INTO Budynki
 (1,20,null,null),
 (2,10,null,null);
 
---7 Mieszkania jedna osoba może wpisać dużą literą, druga małą swoją klatkę, a to będzie to soamo mieszkanie więc wpisy są zachowane a ich interprteacja może być przeprowadzana w dowolnym momencie.
+--7 Mieszkania jedna osoba może wpisać swoją klatkę dużą literą, druga małą, a to będzie to soamo mieszkanie więc wpisy są zachowane a ich interprteacja może być przeprowadzana w dowolnym momencie działania aplikacji.
 create table Mieszkan(IdMieszkan PRIMARY KEY IDENTITY(1,1),IdBudynki INTEGER, NrMieszkanWpis NVarChar(10), NrMieszkaniaInt INTEGER NrKlatek INTEGER NULL)
 INSERT INTO Mieszkan
 (1,'c/13',13,2),
@@ -83,7 +82,7 @@ INSERT INTO Mieszkan
 --8 Meldunki
 create table Meldunki(IdMeldunkow PRIMARY KEY IDENTITY(1,1), IdOsby INTEGER, DatyZameldowan DATE NOT NULL,DatyWymeldowan DATE NULL,CzyStaleZameldowanie BOOLEAN)
 
---9 osoby
+--9 osoby. Pesel występuje tylko w 11. cyfrach jednak rekomendowane jest zapisywanie go w varchar nie mam pojęcia dlaczego.
 create table Osoby(IdOsoby PRIMARY KEY IDENTITY(1,1), PESEL INTEGER)
 
 --10 imiona pierwsze, grugie, dziesiąte
