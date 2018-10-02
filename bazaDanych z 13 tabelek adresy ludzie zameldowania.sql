@@ -73,26 +73,28 @@ SzerokosciGeograficzne NULL INTEGER)
 INSERT INTO Budynki
 (1,20,null,null),
 (2,10,null,null);
---7 Mieszkania
-create table Mieszkan(IdMieszkan PRIMARY KEY IDENTITY(1,1),IdBudynki INTEGER, NrMieszkan NVarChar(10), NrKlatek INTEGER NULL)
+
+--7 Mieszkania jedna osoba może wpisać dużą literą, druga małą swoją klatkę, a to będzie to soamo mieszkanie więc wpisy są zachowane a ich interprteacja może być przeprowadzana w dowolnym momencie.
+create table Mieszkan(IdMieszkan PRIMARY KEY IDENTITY(1,1),IdBudynki INTEGER, NrMieszkanWpis NVarChar(10), NrMieszkaniaInt INTEGER NrKlatek INTEGER NULL)
 INSERT INTO Mieszkan
-(1,13,2),
-(2,26,null);
+(1,'c/13',13,2),
+(2,'26',26,null);
+
 --8 Meldunki
 create table Meldunki(IdMeldunkow PRIMARY KEY IDENTITY(1,1), IdOsby INTEGER, DatyZameldowan DATE NOT NULL,DatyWymeldowan DATE NULL,CzyStaleZameldowanie BOOLEAN)
 
 --9 osoby
-create table Osoby(IdOsoby INTEGER, PESEL INTEGER)
+create table Osoby(IdOsoby PRIMARY KEY IDENTITY(1,1), PESEL INTEGER)
 
 --10 imiona pierwsze, grugie, dziesiąte
-create table Imiona(IdImiona INTEGER, NazwaImienia NVarChar(20))
+create table Imiona(Imiona PRIMARY KEY IDENTITY(1,1), NazwaImienia NVarChar(20))
 INSERT INTO NazwiskaPojedyncze
 ('Merkury'),
 ('Aleksandra'),
 ('Anna'),
 ('Wioletta');
 --11 NazwiskaPojedyncze plus spacja i myślnik jako jeden z nazwisk żeby Curuś Bachleda i Solorz-Żak się nie obrazili
-create table NazwiskaPojedyncze(IdNazwiskaPojedyncze INTEGER, NazwyNazwiskPojedynczych NVarChar(30)) 
+create table NazwiskaPojedyncze(IdNazwiskaPojedyncze PRIMARY KEY IDENTITY(1,1), NazwyNazwiskPojedynczych NVarChar(30)) 
 INSERT INTO NazwiskaPojedyncze
 (' '),
 ('-'),
@@ -104,8 +106,21 @@ INSERT INTO NazwiskaPojedyncze
 ('Nowak'),
 ('Kowalski'),
 ('Capanidis');
---12 Żeby można było mieć imion więcej niż jedno
-create table OsobyImiona(IdOsby INTEGER, IdImiona INTEGER)
+--12 Żeby można było mieć imion więcej niż jedno a NrImion mówi które to imie
+create table OsobyImiona(IdOsby INTEGER, IdImiona INTEGER, NrImion INTEGER)
 
---13 Żeby można było mieć nazwiska wieloczłonowe to jedno tzw. nawzisko będzie ' ', a drugie '-'
-create table OsobyNazwiskaPojedyncze( IdOsoby INTEGER, IdNazwiskaPojedyncze INTEGER )
+--13 Żeby można było mieć nazwiska wieloczłonowe to jedno tzw. nawzisko będzie ' ', a drugie '-', NrNazwiska mówi które to nazwisko danej osoby
+create table OsobyNazwiskaPojedyncze( IdOsoby INTEGER, IdNazwiskaPojedyncze INTEGER, NrNazwisk INTEGER)
+
+--14 Zdrobnienia. Gdyby ktoś podawał zdrobnienie we wpisie to nich rejestrator osoby proponuje formę nie zdrobnioną
+crate table Zdrobnienia (IdZdrobnienia PRIMARY KEY IDENTITY(1,1), NrImion INTEGER, NazwaZdrobnienia NvarChar(20))
+INSERT INTO Zdrobnienia 
+(1,'Meruś'),
+(1,'Merek'),
+(2,'Ola'),
+(2,'Olunia'),
+(3,'Ania'),
+(3,'Anula'),
+(3,'Aneczka'),
+(4,'Wiola'),
+(4,'Wiolunia');
