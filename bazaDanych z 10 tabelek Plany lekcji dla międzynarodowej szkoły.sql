@@ -6,14 +6,18 @@ create database PlanyLekcyjne
 use PlanyLekcyjne*/
 
 --Słownik 
-create table Jezyki(IdJezyki int PRIMARY KEY IDENTITY(1,1), OjczystaNazwaJezyka NvarChar (20)not null, AngielskaNazwaJezyka Varchar (20))
+create table Jezyki(IdJezyki int PRIMARY KEY IDENTITY(1,1), 
+OjczystaNazwaJezyka NvarChar (20) not null, 
+AngielskaNazwaJezyka Varchar (20))
 
 INSERT INTO Jezyki VALUES
 ('Polski','Polish'),
 ('English','English');
 
 --Z uwagi na synomimy homonimy i inne podawane w dwuch
-create table Pojecia(IdPojecia int  PRIMARY KEY IDENTITY(1,1) , PolsaNazwaSlowa NvarChar (30) not null, AngielskaNazwaSlowa NvarChar (30))
+create table Pojecia(IdPojecia int  PRIMARY KEY IDENTITY(1,1) , 
+PolsaNazwaSlowa NvarChar (30) not null, 
+AngielskaNazwaSlowa NvarChar (30))
 
 INSERT INTO Pojecia VALUES
 (N'poniedziałek', N'monday'),  
@@ -59,7 +63,8 @@ INSERT INTO DniTygodnia values
 (4),
 (5);
 
-create table Godziny(IdGodziny int primary key IDENTITY(1,1), OznaczenieCyfrowe VarChar(20))
+create table Godziny(IdGodziny int primary key IDENTITY(1,1), 
+OznaczenieCyfrowe VarChar(20))
 
 INSERT INTO Godziny values
 ('8:00	8:45'),

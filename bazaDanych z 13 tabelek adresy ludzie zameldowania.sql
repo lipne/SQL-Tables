@@ -71,9 +71,8 @@ INSERT INTO Wojewodztwa
 --5 Lokacja czyli ulica; plac; aleja w konkretnym miejscu. Jeżeli ulica zmienia nazwę, zmienia się tylko IdNazwyAdresowe
 create table LokacjeAdresowe(IdLokacjeAdresowe int PRIMARY KEY IDENTITY(1,1),
 IdKodyPocztowe int, 
-IdNazwyAdresowe int)
-CONSTRAINT UC_LokacjeAdresowe UNIQUE (IdKodyPocztowe,IdNazwyAdresowe)
-
+IdNazwyAdresowe int,
+CONSTRAINT UC_LokacjeAdresowe UNIQUE (IdKodyPocztowe,IdNazwyAdresowe));
 INSERT INTO LokacjeAdresowe
 (1,2),
 (2,3);
@@ -83,20 +82,20 @@ create table Budynki(IdBudynki int PRIMARY KEY IDENTITY(1,1),
 IdLokacjeAdresowe int, 
 NrBudynkow int, 
 DlugosciGeograficzneGoogle VARCHAR(12),
-SzerokosciGeograficzneGoogle VARCHAR(12))
-CONSTRAINT UC_Budynki UNIQUE (IdLokacjeAdresowe,NrBudynkow)
+SzerokosciGeograficzneGoogle VARCHAR(12)
+CONSTRAINT UC_Budynki UNIQUE (IdLokacjeAdresowe,NrBudynkow));
 
 INSERT INTO Budynki
 (1,20,null,null),
 (2,10,null,null);
 
 --7 Mieszkania jedna osoba może wpisać swoją klatkę dużą literą, druga małą, a to będzie to soamo mieszkanie więc wpisy są zachowane a ich interprteacja może być przeprowadzana w dowolnym momencie działania aplikacji.
-create table Mieszkania(IdMieszkan int PRIMARY KEY IDENTITY(1,1),
+create table Mieszkania(IdMieszkana int PRIMARY KEY IDENTITY(1,1),
 IdBudynki int, 
-NrMieszkaniaWpis NVarChar(10), 
-NrMieszkaniaInt int, 
-NrKlatek int NULL)
-CONSTRAINT UC_Mieszkania UNIQUE (IdBudynki,NrMieszkaniaWpis)
+NrMieszkanWpisy NVarChar(10), 
+NrMieszkan int, 
+NrKlatek int NULL,
+CONSTRAINT UC_Mieszkania UNIQUE (IdBudynki,NrMieszkanWpisy));
 
 INSERT INTO Mieszkana
 (1,'c/13',13,2),
@@ -108,8 +107,8 @@ IdMieszkan int,
 IdOsoby int, 
 DatyZameldowan DATE NOT NULL,
 DatyWymeldowan DATE NULL,
-CzyStaleZameldowanie BOOLEAN)
- CONSTRAINT UC_Meldunki UNIQUE (IdOsoby,CzyStaleZameldowanie)
+CzyStaleZameldowanie BOOLEAN,
+ CONSTRAINT UC_Meldunki UNIQUE (IdOsoby,CzyStaleZameldowanie));
 
 --9 osoby. Pesel występuje tylko w 11. cyfrach jednak rekomendowane jest zapisywanie go w varchar nie mam pojęcia dlaczego.
 create table Osoby(IdOsoby int PRIMARY KEY IDENTITY(1,1), 
@@ -117,7 +116,7 @@ PESEL NOT NULL UNIQUE int)
  
 --10 imiona pierwsze, grugie, dziesiąte
 create table Imiona(Imiona int PRIMARY KEY IDENTITY(1,1), 
-NazwaImienia NOT NULL UNIQUE NVarChar(20))
+NazwaImienia NOT NULL UNIQUE NVarChar(20));
 INSERT INTO NazwiskaPojedyncze
 (N'Merkury'),
 (N'Aleksandra'),
@@ -139,10 +138,10 @@ INSERT INTO NazwiskaPojedyncze
 (N'Capanidis');
 
 --12 Żeby można było mieć imion więcej niż jedno a NrImion mówi które to imie
-create table OsobyImiona(IdOsby int PRIMARY KEY IDENTITY, 
+create table OsobyImiona(IdOsoby int PRIMARY KEY IDENTITY, 
 IdImiona int, 
 NrImion int)
-CONSTRAINT UC_OsobyImiona UNIQUE (IdImiona,IdImiona)
+CONSTRAINT UC_OsobyImiona UNIQUE (IdOsoby,IdImiona);
 
 --13 Żeby można było mieć nazwiska wieloczłonowe to jedno tzw. nawzisko będzie ' ', a drugie '-', NrNazwiska mówi które to nazwisko danej osoby
 create table OsobyNazwiskaPojedyncze( IdOsoby int, 
