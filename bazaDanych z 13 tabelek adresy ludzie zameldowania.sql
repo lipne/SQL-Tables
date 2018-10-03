@@ -7,7 +7,7 @@ use AdresowanieLudzi*/
 
 --1 oznaczenie adresów określamy czy ulica, czy plac czy co.
 create table RodzajeMiejscowek(IdRodzajeMiejscowek int PRIMARY KEY IDENTITY(1,1),
-NazwaMiejscowki VarChar (20),
+NazwaMiejscowki NvarChar (20),
 NazwaMiejscowkiDoWyswietlenia NvarChar (30))
 CONSTRAINT UC_RodzajeMiejscowek UNIQUE (NazwaMiejscowki,NazwaMiejscowkiDoWyswietlenia)
 INSERT INTO RodzajeMiejscowek VALUES
@@ -142,7 +142,7 @@ INSERT INTO NazwiskaPojedyncze
 create table OsobyImiona(IdOsby int PRIMARY KEY IDENTITY, 
 IdImiona int, 
 NrImion int)
-CONSTRAINT UC_OsobyImiona UNIQUE (IdImiona,IdNazwiskaPojedyncze)
+CONSTRAINT UC_OsobyImiona UNIQUE (IdImiona,IdImiona)
 
 --13 Żeby można było mieć nazwiska wieloczłonowe to jedno tzw. nawzisko będzie ' ', a drugie '-', NrNazwiska mówi które to nazwisko danej osoby
 create table OsobyNazwiskaPojedyncze( IdOsoby int, 
