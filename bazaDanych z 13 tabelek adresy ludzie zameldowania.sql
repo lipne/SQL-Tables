@@ -83,7 +83,7 @@ IdLokacjeAdresowe int,
 NrBudynkow int, 
 DlugosciGeograficzneGoogle VARCHAR(12),
 SzerokosciGeograficzneGoogle VARCHAR(12)
-CONSTRAINT UC_Budynki UNIQUE (IdLokacjeAdresowe,NrBudynkow));
+CONSTRAINT UC_Budynki UNIQUE (IdLokacjeAdresowe,NrBudynkow))
 
 INSERT INTO Budynki
 (1,20,null,null),
@@ -95,7 +95,7 @@ IdBudynki int,
 NrMieszkanWpisy NVarChar(10), 
 NrMieszkan int, 
 NrKlatek int NULL,
-CONSTRAINT UC_Mieszkania UNIQUE (IdBudynki,NrMieszkanWpisy));
+CONSTRAINT UC_Mieszkania UNIQUE (IdBudynki,NrMieszkanWpisy))
 
 INSERT INTO Mieszkana
 (1,'c/13',13,2),
@@ -112,7 +112,7 @@ CzyStaleZameldowanie BOOLEAN,
 
 --9 osoby. Pesel występuje tylko w 11. cyfrach jednak rekomendowane jest zapisywanie go w varchar nie mam pojęcia dlaczego.
 create table Osoby(IdOsoby int PRIMARY KEY IDENTITY(1,1), 
-PESEL NOT NULL UNIQUE int)
+PESEL NOT NULL UNIQUE int);
  
 --10 imiona pierwsze, grugie, dziesiąte
 create table Imiona(Imiona int PRIMARY KEY IDENTITY(1,1), 
@@ -137,13 +137,13 @@ INSERT INTO NazwiskaPojedyncze
 (N'Kowalski'),
 (N'Capanidis');
 
---12 Żeby można było mieć imion więcej niż jedno a NrImion mówi które to imie
+--12 Żeby można było mieć imion więcej niż jedno a NrImion mówi które to imie pierwsze, drugie, trzecie
 create table OsobyImiona(IdOsoby int PRIMARY KEY IDENTITY, 
 IdImiona int, 
 NrImion int)
 CONSTRAINT UC_OsobyImiona UNIQUE (IdOsoby,IdImiona);
 
---13 Żeby można było mieć nazwiska wieloczłonowe to jedno tzw. nawzisko będzie ' ', a drugie '-', NrNazwiska mówi które to nazwisko danej osoby
+--13 Żeby można było mieć nazwiska wieloczłonowe to jedno tzw. nawzisko będzie ' ', a drugie '-', NrNazwiska mówi, które to nazwisko danej Osoby z tym że separatory nazwisk są w bazie pełnoprawnymi nazwiskami, też mają swoje miejsce i też się liczą w numaracji nazwisk 
 create table OsobyNazwiskaPojedyncze( IdOsoby int, 
 IdNazwiskaPojedyncze int, 
 NrNazwisk int)
