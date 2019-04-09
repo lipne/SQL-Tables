@@ -1,3 +1,3 @@
-Plany lekcji powinny siê odpaliæ na MsSql.
-"Zameldowania adresy osoby" raczej siê siê nie wykonaj¹ z powodu g³upich b³êdów i nie maj¹ formalnie wprowadzonej relacji jeden do wielu
-(Tegla za takie okreœlenie siê d¹sa. Zapewne wola³by to nazawaæ narzuceniem na tabelê klucza obcego).
+Plany lekcji powinny siÄ™ odpaliÄ‡ na MsSql.
+"Zameldowania adresy osoby" raczej siÄ™ siÄ™ nie wykonajÄ… z powodu gÅ‚upich bÅ‚Ä™dÃ³w i nie majÄ… formalnie wprowadzonej relacji jeden do wielu
+(za takie okreÅ›lenie pursta sqlowy siÄ™ dÄ…sa. Zapewne wolaÅ‚by to nazawaÄ‡ narzuceniem na tabelÄ™ klucza obcego).

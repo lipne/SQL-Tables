@@ -1,0 +1,41 @@
+use [ZadaniowaBAZADanych];
+IF OBJECT_ID('Archiwum','U') IS NOT NULL
+	DROP table Archiwum;
+create table Archiwum (NrArchiwum INT IDENTITY(1,1) PRIMARY KEY, NazwaProduktu NVARCHAR(100), NrKategorii INT, Cena MONEY);
+
+IF OBJECT_ID('Products','U') IS NOT NULL
+	DROP table Products;
+CREATE table Products (ProductName NVARCHAR(100) ,CategoryID INT ,UnitPrice MONEY)
+
+IF OBJECT_ID('Zad2','P') IS NOT NULL
+	DROP Procedure Zad2;
+GO
+Create Procedure Zad2
+as
+begin
+	begin try
+		begin tran TranZad2			
+			
+			Insert into Archiwum (NazwaProduktu, NrKategorii,Cena) select ProductName ,CategoryID,UnitPrice from Products;
+			IF @@ERROR <>0
+				RAISERROR('Nie powiodło się dopisanie wiersza do tablicy Archiwum', 16,1);
+			delete  from Products;
+			IF @@ERROR <>0
+				RAISERROR('Nie powiodło się usunięcie wiersza z tabliicy products', 16,1);
+			
+--			RAISERROR('Testowy błąd',16,1);
+
+			if @@ERROR =0
+				print N'wszytko dobrze';
+		Commit tran TranZad2;
+	end try
+	Begin Catch
+	ROllback tran TranZad2;
+	End Catch
+end
+GO
+
+Insert into Products values ('jajo kurze', 3, .45),('długopis',4,.20)
+exec Zad2
+select * from Archiwum
+select * from Products

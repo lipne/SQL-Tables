@@ -1,0 +1,31 @@
+use Northwind
+IF OBJECT_ID('TrZad3','TR') IS NOT NULL
+	DROP TRIGGER TrZad3
+go
+CREATE TRIGGER TrZad3 ON [Order Details]
+AFTER INSERT
+AS
+DECLARE @TabProdNaZamowieniach TABLE (IdProduktu INT, Ilosc INT)
+
+INSERT INTO @TabProdNaZamowieniach
+SELECT ProductID, SUM(Quantity) FROM Inserted GROUP BY ProductID
+
+IF EXISTS (SELECT ProductID FROM Products P JOIN @TabProdNaZamowieniach T ON P.ProductID=T.IdProduktu
+		   WHERE UnitsInStock < Ilosc)
+BEGIN		   
+	ROLLBACK
+--	RAISERROR('Zbyt duża ilość pewnego produktu na zamówieniu',16,1)
+END
+GO
+
+declare @IdOrder int = 10248
+declare @IdProduct int = 1
+
+
+IF (Select count(*) from  [Order Details] where [OrderID]= @IdOrder and [ProductID] = @IdProduct) <>0
+delete from [Order Details] where [OrderID]= @IdOrder and [ProductID] = @IdProduct
+
+INSERT INTO [Order Details] VALUES (@IdOrder,@IdProduct,0.50,7,0)
+
+select [Quantity] from  [Order Details] where [OrderID]= @IdOrder and [ProductID] = @IdProduct
+select [UnitsInStock] from [dbo].[Products] where [ProductID] = @IdProduct
