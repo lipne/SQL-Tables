@@ -1,10 +1,9 @@
 
-﻿/*Baza danych dla ewidencki mieszkańców. Celem żaden sposób nie było tu usprawnienie tu wydajność np. wyszukiwania adresów czy też nazwsk.
- Staram się "zrzutawać" sytuację w realnym świecie na bazę danych pod możliwości dewelopera w implementacji tak, aby nie musiał sprawdzać, czy też docieka zadawałoby się oczywistych definicji pojęć takich jak imię, nazwisko, adres, pesel, relacyjne bazy danych.
+﻿/*Baza danych dla ewidencki mieszkańców.
+ Celem schematu bazy danych w żaden sposób nie była wysoka wydajność np. wyszukiwania adresów czy też nazwsk.
+ Starania ograniczyły się aby "zrzutawać" sytuację w realnym świecie na bazę danych pod możliwości dewelopera w implementacji tak, aby nie musiał sprawdzać, czy też docieka zadawałoby się oczywistych definicji pojęć takich jak imię, nazwisko, adres, pesel, relacyjne bazy danych.
  
  */
-
-
 
 --1 oznaczenie adresów określamy czy ulica, czy plac czy co.
 create table RodzajeMiejscowek(IdRodzajeMiejscowek int PRIMARY KEY IDENTITY(1,1),
@@ -99,7 +98,7 @@ NrKlatek int NULL,
 CONSTRAINT UC_Mieszkania UNIQUE (IdBudynki,NrMieszkanWpisy))
 
 INSERT INTO Mieszkana
-(1,'c/13',13,2),
+(1,'x/99',13,2),
 (2,'26',26,null);
 
 --8 Meldunki Można mieć tylko po jednym czyli stałym i czasowym. Więc trzeba byłoby narzucić klucz na IdOsoby i CzyStaleZameldowanie.
@@ -129,10 +128,9 @@ INSERT INTO NazwiskaPojedyncze
 
 (N'Róża'),
 (N'Maria'),
-
 (N'Barbara');
                                       ;
---11 NazwiskaPojedyncze plus spacja i myślnik jako jeden z nazwisk żeby Curuś Bachleda i Solorz-Żak się nie obrazili
+--11 NazwiskaPojedyncze plus spacja i myślnik jako jeden z nazwisk, żeby Curuś Bachleda i Solorz-Żak byli usatyfakcjonowani
 create table NazwiskaPojedyncze(IdNazwiskaPojedyncze int PRIMARY KEY IDENTITY(1,1), 
 NazwyNazwiskPojedynczych NOT NULL UNIQUE NVarChar(30)) 
 INSERT INTO NazwiskaPojedyncze
@@ -148,21 +146,11 @@ INSERT INTO NazwiskaPojedyncze
 (N'Capanidis'),
 //Róża Maria Barbara Gräfin von Thun und Hohenstein 
 
-
 (N'Gräfin'),
 (N'von'),
 (N'Thun'),
 (N'und'),
 (N'Hohenstein');
-
-
-
-(N'Gräfin'),
-(N'von'),
-(N'Thun'),
-(N'und'),
-(N'Hohenstein');
-
 
 --12 Dla oznaczenia numeracji imion, NrImion mówi które to imie pierwsze, drugie, trzecie
 create table OsobyImiona(IdOsoby int PRIMARY KEY IDENTITY, 
@@ -170,16 +158,15 @@ IdImiona int,
 NrImion int)
 CONSTRAINT UC_OsobyImiona UNIQUE (IdOsoby,IdImiona);
 
---13 Żeby można było mieć nazwiska wieloczłonowe to jedno tzw. nawzisko będzie ' ', a drugie '-', NrNazwiska mówi, które to nazwisko danej Osoby z tym że separatory nazwisk są w bazie pełnoprawnymi nazwiskami, też mają swoje miejsce i też się liczą w numaracji nazwisk 
+--13 Żeby można było mieć nazwiska wieloczłonowe to jedno tzw. nawzisko będzie ' ', a drugie '-', NrNazwiska mówi, które to nazwisko danej Osoby z tym że separatory nazwisk są w bazie pełnoprawnymi nazwiskami, też mają swoje miejsce i też się liczą w numaracji nazwisk, ale tylko dla aplikaci nikogo w świecie realnym nie obchodzi które to z kolei nazwisko, a jedynie kolejność zapisu.
 create table OsobyNazwiskaPojedyncze( IdOsoby int, 
 IdNazwiskaPojedyncze int, 
 NrNazwisk int)
  CONSTRAINT UC_OsobyNazwiskaPojedyncze UNIQUE (IdOsoby,IdNazwiskaPojedyncze);
---14 Zakładam, że nazwiska rodowe mogą się składać z wielu członów
+--14 Zakładam, że nazwiska rodowe mogą się składać z wielu członów 
  create table NazwiskaRodowe(IdOsoby int, IdNazwiskaPojedyncze int, NrNazwiskaRodowego int)
 
 CONSTRAINT NazwiskaRodowe UNIQUE (IdOsoby,IdNazwiskaPoljedyncze);
-
 
  --15 Zdrobnienia. Gdyby ktoś podawał zdrobnienie we wpisie to niech rejestrator osoby proponuje formę nie zdrobnioną
 create table Zdrobnienia (IdZdrobnienia int PRIMARY KEY IDENTITY(1,1), 
