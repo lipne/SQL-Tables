@@ -1,0 +1,16 @@
+use Northwind
+go
+CREATE FUNCTION Zadanie1 (@CategoryID int, @DolnaGranica money, @GornaGranica money )
+RETURNS @tabelka TABLE (ProductName nvarchar(40), CategoryID int,
+UnitPrice money)
+as
+begin
+Insert into @tabelka 
+		SELECT ProductName, CategoryID, UnitPrice
+		FROM Products
+		WHERE UnitPrice BETWEEN @DolnaGranica and @GornaGranica and CategoryID = @CategoryID
+		return
+end
+go
+SELECT * from Zadanie1 (2,10,100)
+
