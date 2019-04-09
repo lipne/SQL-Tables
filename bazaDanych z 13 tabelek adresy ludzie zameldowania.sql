@@ -1,9 +1,9 @@
-﻿/*Baza danych dla ewidencki mieszkańców.*/
+﻿/*Baza danych dla ewidencki mieszkańców. W żaden sposób nie jest usprawniona wydajność np. wyszukiwania adresów czy też nazwsk.
+ Staram się "zrzutawać" sytuację w realnym świecie na bazę danych pod możliwości dewelopera w implementacji tak, aby nie musiał sprawdzać, czy też
+ docieka zadawałoby się oczywistych definicji pojęć takich jak imię, nazwisko, adres, pesel, relacyjne bazy danych.
+ 
+ */
 
-/*use Northwind
-drop database AdresowanieLudzi
-create database AdresowanieLudzi
-use AdresowanieLudzi*/
 
 --1 oznaczenie adresów określamy czy ulica, czy plac czy co.
 create table RodzajeMiejscowek(IdRodzajeMiejscowek int PRIMARY KEY IDENTITY(1,1),
@@ -121,7 +121,11 @@ INSERT INTO NazwiskaPojedyncze
 (N'Merkury'),
 (N'Aleksandra'),
 (N'Anna'),
-(N'Wioletta');
+(N'Wioletta'),
+(N'Róża),
+(N'Maria),
+(N'Barbara');
+                                      ;
 --11 NazwiskaPojedyncze plus spacja i myślnik jako jeden z nazwisk żeby Curuś Bachleda i Solorz-Żak się nie obrazili
 create table NazwiskaPojedyncze(IdNazwiskaPojedyncze int PRIMARY KEY IDENTITY(1,1), 
 NazwyNazwiskPojedynczych NOT NULL UNIQUE NVarChar(30)) 
@@ -135,9 +139,16 @@ INSERT INTO NazwiskaPojedyncze
 (N'Żak'),
 (N'Nowak'),
 (N'Kowalski'),
-(N'Capanidis');
+(N'Capanidis'),
+//Róża Maria Barbara Gräfin von Thun und Hohenstein 
 
---12 Żeby można było mieć imion więcej niż jedno a NrImion mówi które to imie pierwsze, drugie, trzecie
+(N'Gräfin'),
+(N'von'),
+(N'Thun'),
+(N'und'),
+(N'Hohenstein');
+
+--12 Dla oznaczenia numeracji imion, NrImion mówi które to imie pierwsze, drugie, trzecie
 create table OsobyImiona(IdOsoby int PRIMARY KEY IDENTITY, 
 IdImiona int, 
 NrImion int)
@@ -147,10 +158,12 @@ CONSTRAINT UC_OsobyImiona UNIQUE (IdOsoby,IdImiona);
 create table OsobyNazwiskaPojedyncze( IdOsoby int, 
 IdNazwiskaPojedyncze int, 
 NrNazwisk int)
- CONSTRAINT UC_OsobyNazwiskaPojedyncze UNIQUE (IdOsoby,IdNazwiskaPojedyncze)
-
- --14 Zdrobnienia. Gdyby ktoś podawał zdrobnienie we wpisie to nich rejestrator osoby proponuje formę nie zdrobnioną
-crate table Zdrobnienia (IdZdrobnienia int PRIMARY KEY IDENTITY(1,1), 
+ CONSTRAINT UC_OsobyNazwiskaPojedyncze UNIQUE (IdOsoby,IdNazwiskaPojedyncze);
+--14 Zakładam, że nazwiska rodowe mogą się składać z wielu członów
+ create table NazwiskaRodowe(IdOsoby int, IdNazwiskaPojedyncze int, NrNazwiskaRodowego int)
+CONSTRAINT NazwiskaRodowe UNIQUE (IdOsoby,IdNazwiskaPoljedyncze)
+ --15 Zdrobnienia. Gdyby ktoś podawał zdrobnienie we wpisie to niech rejestrator osoby proponuje formę nie zdrobnioną
+create table Zdrobnienia (IdZdrobnienia int PRIMARY KEY IDENTITY(1,1), 
 IdImiona int, 
 NazwaZdrobnienia NOT NULL UNIQUE NvarChar(20))
 INSERT INTO Zdrobnienia 
