@@ -1,5 +1,5 @@
 
-﻿/*Baza danych dla ewidencki mieszkańców.
+﻿/*Baza danych dla ewidencji mieszkańców.
  Celem schematu bazy danych w żaden sposób nie była wysoka wydajność np. wyszukiwania adresów czy też nazwsk.
  Starania ograniczyły się aby "zrzutawać" sytuację w realnym świecie na bazę danych pod możliwości dewelopera w implementacji tak, aby nie musiał sprawdzać, czy też docieka zadawałoby się oczywistych definicji pojęć takich jak imię, nazwisko, adres, pesel, relacyjne bazy danych.
  
